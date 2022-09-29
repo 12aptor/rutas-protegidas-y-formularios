@@ -29,7 +29,7 @@ const Home = () => {
     const response = await signIn(user);
 
     if (response.status === 200) {
-      window.localStorage.setItem("token", response.json.token)
+      localStorage.setItem("token", response.json.token)
       navigate("/users");
     } else {
       alert("Credenciales incorrectas")

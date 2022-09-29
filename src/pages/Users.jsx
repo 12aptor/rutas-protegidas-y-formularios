@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { isAuthenticated } from "../services/authServices";
+import { isAuthenticated, uploadPhoto } from "../services/authServices";
 
 const Users = () => {
   const [userData, setUserData] = useState({
@@ -45,6 +45,15 @@ const Users = () => {
       });
     }
   };
+
+  const handleFileChange = async (e) => {
+    const file = e.currentTarget.files[0]
+    const response = await uploadPhoto(file)
+
+    if (response.status === 201) {
+      console.log("La iamgen fue guardada correctamente")
+    }
+  }
 
   if (!isAuthenticated()) {
     return <Navigate to="/" />;
@@ -93,6 +102,14 @@ const Users = () => {
             step={0.01}
             name="height"
             onChange={handleInputChange}
+          />
+        </div>
+        <div className="form_group">
+          <label>Photo</label>
+          <input
+            type="file"
+            name="photo"
+            onChange={handleFileChange}
           />
         </div>
         <button type="submit">Submit data</button>
