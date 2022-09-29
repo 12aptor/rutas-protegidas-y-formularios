@@ -10,12 +10,13 @@ const Home = () => {
   // Función para ejecutar el evento onSubmit y consumir la API
   const signIn = (e) => {
     e.preventDefault();
+    console.log(user);
     fetch("https://reqres.in/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.parse(user),
+      body: JSON.stringify(user),
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
