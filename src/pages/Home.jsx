@@ -1,24 +1,46 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles.css";
 
 const Home = () => {
+  // Instanciamos el usenavigate
+  const navigate = useNavigate();
   // Estado que contiene nuestras credenciales de usuario
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
   // Función para ejecutar el evento onSubmit y consumir la API
-  const signIn = (e) => {
+  const signIn = async (e) => {
     e.preventDefault();
-    fetch("https://reqres.in/api/login", {
+    // Forma 1 de hacer un fetch (no debe haber un async delante de la funcion)
+    // fetch("https://reqres.in/api/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(user),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => console.log(data));
+
+    // Forma 2 de hacer un fetch
+    const response = await fetch("https://reqres.in/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    });
+    const status = response.status;
+    const json = await response.json();
+
+    if (status === 200) {
+      window.localStorage.setItem("token", json.token)
+      navigate("/users");
+    } else {
+      alert("Credenciales incorrectas")
+    }
   };
   // Función controlada, para obtener valores de los input
   const handleInputChange = (e) => {
