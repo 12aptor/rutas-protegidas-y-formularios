@@ -17,10 +17,31 @@ const Users = () => {
   };
 
   const handleInputChange = (e) => {
-    setUserData({
-      ...userData,
-      [e.currentTarget.name]: e.currentTarget.value,
-    });
+    // Capturamos los valores que necesitamos(name y value)
+    const name = e.currentTarget.name;
+    const value = e.currentTarget.value;
+    // Modificar value según nuestra necesidad (string, number, float, boolean)
+    if (name === "name" || name === "birth") {
+      return setUserData({
+        ...userData,
+        [e.currentTarget.name]: value,
+      });
+    } else if (name === "age") {
+      return setUserData({
+        ...userData,
+        [e.currentTarget.name]: parseInt(value),
+      });
+    } else if (name === "peruvian") {
+      return setUserData({
+        ...userData,
+        [e.currentTarget.name]: !userData.peruvian,
+      });
+    } else {
+      return setUserData({
+        ...userData,
+        [e.currentTarget.name]: parseFloat(value),
+      });
+    }
   };
 
   if (!isAuthenticated) {
@@ -47,11 +68,15 @@ const Users = () => {
         </div>
         <div className="form_group">
           <label>Birth</label>
-          <input type={"datetime"} name="birth" onChange={handleInputChange} />
+          <input
+            type={"datetime-local"}
+            name="birth"
+            onChange={handleInputChange}
+          />
         </div>
         <div className="form_group">
           <label>Peruvian</label>
-          <input type="checkbox" name="peruvian" onChange={handleInputChange} />
+          <input type="checkbox" name="peruvian" checked={userData.peruvian} onChange={handleInputChange} />
         </div>
         <div className="form_group">
           <label>Height</label>
