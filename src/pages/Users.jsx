@@ -44,7 +44,7 @@ const Users = () => {
     }
   };
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated()) {
     return <Navigate to="/" />;
   }
 
