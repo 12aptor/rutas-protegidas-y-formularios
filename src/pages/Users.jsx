@@ -9,6 +9,7 @@ const Users = () => {
     birth: "",
     peruvian: true,
     height: 0.0,
+    photo_url: ""
   });
 
   const sendUserData = (e) => {
@@ -52,6 +53,10 @@ const Users = () => {
 
     if (response.status === 201) {
       console.log("La iamgen fue guardada correctamente")
+      setUserData({
+        ...userData,
+        photo_url: response.json.url
+      })
     }
   }
 
