@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { isAuthenticated } from "../services/authServices";
 
 const Users = () => {
-  const [isAuth, setIsAuth] = useState(false);
-
-  if (!isAuth) {
-    return <Navigate to="/" />
+  if (!isAuthenticated) {
+    return <Navigate to="/" />;
   }
 
   return <div>Users</div>;
