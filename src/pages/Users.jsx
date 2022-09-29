@@ -18,8 +18,10 @@ const Users = () => {
 
   const handleInputChange = (e) => {
     // Capturamos los valores que necesitamos(name y value)
-    const name = e.currentTarget.name;
-    const value = e.currentTarget.value;
+    // const name = e.currentTarget.name;
+    // const value = e.currentTarget.value;
+    const { name, value } = e.currentTarget;
+
     // Modificar value según nuestra necesidad (string, number, float, boolean)
     if (name === "name" || name === "birth") {
       return setUserData({
@@ -76,7 +78,12 @@ const Users = () => {
         </div>
         <div className="form_group">
           <label>Peruvian</label>
-          <input type="checkbox" name="peruvian" checked={userData.peruvian} onChange={handleInputChange} />
+          <input
+            type="checkbox"
+            name="peruvian"
+            checked={userData.peruvian}
+            onChange={handleInputChange}
+          />
         </div>
         <div className="form_group">
           <label>Height</label>
@@ -88,6 +95,7 @@ const Users = () => {
             onChange={handleInputChange}
           />
         </div>
+        <button type="submit">Submit data</button>
       </form>
     </div>
   );

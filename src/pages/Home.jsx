@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signIn } from "../services/authServices";
 import "../styles.css";
 
 const Home = () => {
@@ -11,7 +12,7 @@ const Home = () => {
     password: "",
   });
   // Función para ejecutar el evento onSubmit y consumir la API
-  const signIn = async (e) => {
+  const sendSignInData = async (e) => {
     e.preventDefault();
     // Forma 1 de hacer un fetch (no debe haber un async delante de la funcion)
     // fetch("https://reqres.in/api/login", {
@@ -24,18 +25,10 @@ const Home = () => {
     //   .then((response) => response.json())
     //   .then((data) => console.log(data));
 
-    // Forma 2 de hacer un fetch
-    const response = await fetch("https://reqres.in/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
-    const status = response.status;
-    const json = await response.json();
+    // Forma 2 de hacer un fetch (en la funcion authServices)
+    const response = await signIn(user);
 
-    if (status === 200) {
+    if (response.status === 200) {
       window.localStorage.setItem("token", json.token)
       navigate("/users");
     } else {
@@ -52,7 +45,7 @@ const Home = () => {
 
   return (
     <div className="App">
-      <form onSubmit={signIn}>
+      <form onSubmit={sendSignInData}>
         <h2>Sign In</h2>
         <div className="form_group">
           <label>Email</label>
