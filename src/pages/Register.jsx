@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { authFirebaseWithEmailService } from "../services/firebaseServices";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [newUser, setNewUser] = useState({
     email: "",
     password: "",
@@ -11,7 +13,10 @@ const Register = () => {
     e.preventDefault();
     try {
       const userCredentials = await authFirebaseWithEmailService(newUser);
-      console.log(userCredentials);
+      if (userCredentials.user) {
+        localStorage.setItem("token", userCredentials.user.accessToken);
+        navigate("/users")
+      }
     } catch (error) {
       console.log(error.message);
     }
