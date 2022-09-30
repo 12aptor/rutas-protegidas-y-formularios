@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../services/authServices";
+import { signInFirebaseWithEmailService } from "../services/firebaseServices";
 import "../styles.css";
 
 const Home = () => {
@@ -27,13 +28,23 @@ const Home = () => {
     //   .then((data) => console.log(data));
 
     // Forma 2 de hacer un fetch (en la funcion authServices)
-    const response = await signIn(user);
+    // const response = await signIn(user);
+    // if (response.status === 200) {
+    //   localStorage.setItem("token", response.json.token);
+    //   navigate("/users");
+    // } else {
+    //   alert("Credenciales incorrectas");
+    // }
 
-    if (response.status === 200) {
-      localStorage.setItem("token", response.json.token);
-      navigate("/users");
-    } else {
-      alert("Credenciales incorrectas");
+    try {
+      const userCredential = await signInFirebaseWithEmailService(user);
+      if (userCredential.user) {
+        console.log(userCredential);
+        localStorage.setItem("token", userCredential.user.accessToken);
+        navigate("/users");
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
   // Función controlada, para obtener valores de los input
