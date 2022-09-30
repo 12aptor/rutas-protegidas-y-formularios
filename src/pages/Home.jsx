@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../services/authServices";
 import "../styles.css";
@@ -11,6 +11,7 @@ const Home = () => {
     email: "",
     password: "",
   });
+
   // Función para ejecutar el evento onSubmit y consumir la API
   const sendSignInData = async (e) => {
     e.preventDefault();
@@ -29,10 +30,10 @@ const Home = () => {
     const response = await signIn(user);
 
     if (response.status === 200) {
-      localStorage.setItem("token", response.json.token)
+      localStorage.setItem("token", response.json.token);
       navigate("/users");
     } else {
-      alert("Credenciales incorrectas")
+      alert("Credenciales incorrectas");
     }
   };
   // Función controlada, para obtener valores de los input
