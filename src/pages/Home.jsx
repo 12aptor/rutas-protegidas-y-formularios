@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../services/authServices";
-import { signInFirebaseWithEmailService } from "../services/firebaseServices";
+import {
+  signInFirebaseWithEmailService,
+  signInFirebaseWithFacebook,
+  signInFirebaseWithGoogle,
+} from "../services/firebaseServices";
 import "../styles.css";
 
 const Home = () => {
@@ -39,7 +43,6 @@ const Home = () => {
     try {
       const userCredential = await signInFirebaseWithEmailService(user);
       if (userCredential.user) {
-        console.log(userCredential);
         localStorage.setItem("token", userCredential.user.accessToken);
         navigate("/users");
       }
@@ -69,6 +72,12 @@ const Home = () => {
         </div>
         <button type="submit">Sign In</button>
       </form>
+      <div>
+        <button type="button" onClick={signInFirebaseWithGoogle}>
+          Sign In With Google
+        </button>
+        <button type="button" onClick={signInFirebaseWithFacebook}>Sign In With Facebook</button>
+      </div>
     </div>
   );
 };

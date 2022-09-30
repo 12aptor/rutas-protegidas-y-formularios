@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { isAuthenticated, uploadPhoto } from "../services/authServices";
+import { isFirebaseAuthenticated, signOutFirebase } from "../services/firebaseServices";
 
 const Users = () => {
   const [userData, setUserData] = useState({
@@ -9,7 +10,7 @@ const Users = () => {
     birth: "",
     peruvian: true,
     height: 0.0,
-    photo_url: ""
+    photo_url: "",
   });
 
   const sendUserData = (e) => {
@@ -48,19 +49,24 @@ const Users = () => {
   };
 
   const handleFileChange = async (e) => {
-    const file = e.currentTarget.files[0]
-    const response = await uploadPhoto(file)
+    const file = e.currentTarget.files[0];
+    const response = await uploadPhoto(file);
 
     if (response.status === 201) {
-      console.log("La iamgen fue guardada correctamente")
+      console.log("La iamgen fue guardada correctamente");
       setUserData({
         ...userData,
-        photo_url: response.json.url
-      })
+        photo_url: response.json.url,
+      });
     }
-  }
+  };
 
-  if (!isAuthenticated()) {
+  // if (!isAuthenticated()) {
+  //   return <Navigate to="/" />;
+  // }
+
+  // Condicional que comprueba la sesión
+  if (!isFirebaseAuthenticated()) {
     return <Navigate to="/" />;
   }
 
@@ -111,14 +117,15 @@ const Users = () => {
         </div>
         <div className="form_group">
           <label>Photo</label>
-          <input
-            type="file"
-            name="photo"
-            onChange={handleFileChange}
-          />
+          <input type="file" name="photo" onChange={handleFileChange} />
         </div>
         <button type="submit">Submit data</button>
       </form>
+      <div>
+        <button type="button" onClick={signOutFirebase}>
+          Sign Out
+        </button>
+      </div>
     </div>
   );
 };
