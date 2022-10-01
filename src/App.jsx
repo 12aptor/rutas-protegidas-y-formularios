@@ -4,14 +4,14 @@ import Users from "./pages/Users";
 import "./App.css";
 import Register from "./pages/Register";
 import { useEffect, useState } from "react";
-import { isFirebaseInitilized } from "./services/firebaseServices";
+import { isFirebaseInitilizedService } from "./services/firebaseServices";
 
 function App() {
   const [firebaseInitilized, setFirebaseInitialized] = useState(false);
 
   useEffect(() => {
     const initialized = async () => {
-      const response = await isFirebaseInitilized();
+      const response = await isFirebaseInitilizedService();
       setFirebaseInitialized(response);
     };
     initialized();

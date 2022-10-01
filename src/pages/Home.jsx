@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../services/authServices";
 import {
-  isFirebaseInitilized,
+  isFirebaseInitilizedService,
   signInFirebaseWithEmailService,
   signInFirebaseWithFacebook,
   signInFirebaseWithGoogle,

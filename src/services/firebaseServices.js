@@ -30,7 +30,7 @@ export const signInFirebaseWithEmailService = async (user) => {
   return response;
 };
 
-export const isFirebaseInitilized = () => {
+export const isFirebaseInitilizedService = () => {
   return new Promise((resolve, reject) => {
     try {
       onAuthStateChanged(auth, (user) => {
@@ -52,12 +52,12 @@ export const signInFirebaseWithFacebook = async () => {
   return response;
 };
 
-export const signOutFirebase = async () => {
+export const signOutFirebaseService = async () => {
   const response = await signOut(auth);
   window.location.href = "/";
   return response;
 };
 
-export const isFirebaseAuthenticated = () => {
+export const isFirebaseAuthenticatedService = () => {
   return auth.currentUser;
 };

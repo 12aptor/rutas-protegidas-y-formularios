@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { isAuthenticated, uploadPhoto } from "../services/authServices";
 import {
-  isFirebaseAuthenticated,
-  signOutFirebase,
+  isFirebaseAuthenticatedService,
+  signOutFirebaseService,
 } from "../services/firebaseServices";
 
 const Users = () => {
@@ -70,7 +70,7 @@ const Users = () => {
   // }
 
   // Condicional que comprueba la sesión
-  if (!isFirebaseAuthenticated()) {
+  if (!isFirebaseAuthenticatedService()) {
     return <Navigate to="/" />;
   }
 
@@ -126,7 +126,7 @@ const Users = () => {
         <button type="submit">Submit data</button>
       </form>
       <div>
-        <button type="button" onClick={signOutFirebase}>
+        <button type="button" onClick={signOutFirebaseService}>
           Sign Out
         </button>
       </div>
