@@ -15,7 +15,7 @@ function App() {
       setFirebaseInitialized(response);
     };
     initialized();
-  });
+  },[]);
 
   return firebaseInitilized !== false ? (
     <BrowserRouter>

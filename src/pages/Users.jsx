@@ -57,7 +57,7 @@ const Users = () => {
     const response = await uploadPhoto(file);
 
     if (response.status === 201) {
-      console.log("La iamgen fue guardada correctamente");
+      console.log("La imagen fue guardada correctamente");
       setUserData({
         ...userData,
         photo_url: response.json.url,
