@@ -30,14 +30,14 @@ export const signInFirebaseWithEmailService = async (user) => {
   return response;
 };
 
-export const isFirebaseAuthenticated = () => {
+export const isFirebaseInitilized = () => {
   return new Promise((resolve, reject) => {
     try {
       onAuthStateChanged(auth, (user) => {
-        resolve(true);
+        resolve(user);
       });
     } catch {
-      reject(false);
+      reject("La sesión expiró");
     }
   });
 };
@@ -54,6 +54,10 @@ export const signInFirebaseWithFacebook = async () => {
 
 export const signOutFirebase = async () => {
   const response = await signOut(auth);
-  window.location.href = "/"
+  window.location.href = "/";
   return response;
+};
+
+export const isFirebaseAuthenticated = () => {
+  return auth.currentUser;
 };

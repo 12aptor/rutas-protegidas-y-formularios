@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../services/authServices";
 import {
+  isFirebaseInitilized,
   signInFirebaseWithEmailService,
   signInFirebaseWithFacebook,
   signInFirebaseWithGoogle,
@@ -76,7 +77,9 @@ const Home = () => {
         <button type="button" onClick={signInFirebaseWithGoogle}>
           Sign In With Google
         </button>
-        <button type="button" onClick={signInFirebaseWithFacebook}>Sign In With Facebook</button>
+        <button type="button" onClick={signInFirebaseWithFacebook}>
+          Sign In With Facebook
+        </button>
       </div>
     </div>
   );

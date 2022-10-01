@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { isAuthenticated, uploadPhoto } from "../services/authServices";
-import { isFirebaseAuthenticated, signOutFirebase } from "../services/firebaseServices";
+import {
+  isFirebaseAuthenticated,
+  signOutFirebase,
+} from "../services/firebaseServices";
 
 const Users = () => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: "",
     age: 0,

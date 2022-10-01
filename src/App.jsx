@@ -3,9 +3,21 @@ import Home from "./pages/Home";
 import Users from "./pages/Users";
 import "./App.css";
 import Register from "./pages/Register";
+import { useEffect, useState } from "react";
+import { isFirebaseInitilized } from "./services/firebaseServices";
 
 function App() {
-  return (
+  const [firebaseInitilized, setFirebaseInitialized] = useState(false);
+
+  useEffect(() => {
+    const initialized = async () => {
+      const response = await isFirebaseInitilized();
+      setFirebaseInitialized(response);
+    };
+    initialized();
+  });
+
+  return firebaseInitilized !== false ? (
     <BrowserRouter>
       <Routes>
         <Route path="" element={<Home />} />
@@ -13,6 +25,8 @@ function App() {
         <Route path="users" element={<Users />} />
       </Routes>
     </BrowserRouter>
+  ) : (
+    "Cargando..."
   );
 }
 
